@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  samba:
+    build: .
+    restart: always
+    environment:
+      ACCOUNT_bob: bobpass
+      ACCOUNT_alice: alipass
+      GROUP_storage_writers: alice,bob
+      SAMBA_VOLUME_CONFIG_storage_raid: "[storage_raid]; path=/share/storage_raid; valid users = @storage_writers; guest ok = no; read only = no; browseable = yes; force group = storage_writers"
+      SAMBA_VOLUME_CONFIG_aliceonly: "[Alice Share]; path=/shares/alice; valid users = alice; guest ok = no; read only = no; browseable = yes"
+    volumes:
+      - ./shares/alice:/shares/alice
+      - ./shares/storage_raid:/shares/storage_raid
+    ports:
+      - 1399:139
+      - 4455:445
