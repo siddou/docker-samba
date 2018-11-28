@@ -14,5 +14,5 @@ services:
       - ./shares/alice:/shares/alice
       - ./shares/storage_raid:/shares/storage_raid
     ports:
-      - 1399:139
-      - 4455:445
+      - 139:139
+      - 445:445
